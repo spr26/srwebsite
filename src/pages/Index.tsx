@@ -2,35 +2,60 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Phone, Mail, MapPin, Zap, Home, Building, Wrench, Shield, Clock, CheckCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Phone, Mail, MapPin, Zap, Home, Building, Wrench, Shield, Clock, CheckCircle, Send } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
   const services = [
     {
-      title: "Residential Electrical",
+      title: "Government Sector Projects",
+      description: "Specialized electrical solutions for government buildings, institutions, and public infrastructure projects.",
+      icon: Building,
+      features: ["Government Buildings", "Public Infrastructure", "Institutional Wiring", "Compliance & Certification"]
+    },
+    {
+      title: "Residential Solutions",
       description: "Complete electrical solutions for homes including wiring, outlets, lighting, and panel upgrades.",
       icon: Home,
-      features: ["New Installations", "Repairs & Maintenance", "Panel Upgrades", "Smart Home Integration"]
+      features: ["Home Wiring", "Electrical Repairs", "Panel Upgrades", "Safety Inspections"]
     },
     {
-      title: "Commercial Electrical",
-      description: "Professional electrical services for businesses, offices, and commercial properties.",
-      icon: Building,
-      features: ["Office Wiring", "Lighting Systems", "Emergency Lighting", "Data & Network Cabling"]
-    },
-    {
-      title: "Electrical Repairs",
-      description: "Fast and reliable electrical repair services for all types of electrical issues.",
+      title: "Electrical Installations",
+      description: "Professional installation services for both government and residential properties.",
       icon: Wrench,
-      features: ["Troubleshooting", "Circuit Repairs", "Outlet Repairs", "Switch Replacements"]
+      features: ["New Installations", "System Upgrades", "Circuit Installation", "Equipment Setup"]
     },
     {
-      title: "Safety Inspections",
-      description: "Comprehensive electrical safety inspections to ensure your property meets all codes.",
+      title: "Safety & Compliance",
+      description: "Comprehensive electrical safety inspections and compliance services for all sectors.",
       icon: Shield,
-      features: ["Code Compliance", "Safety Audits", "Certification", "Preventive Maintenance"]
+      features: ["Safety Audits", "Code Compliance", "Government Standards", "Certification Services"]
     }
   ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log('Form submitted:', formData);
+  };
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -66,12 +91,12 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
-                <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Professional Electrical Services</Badge>
+                <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Government & Residential Electrical Services</Badge>
                 <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                   Professional <span className="text-blue-600">Electrical</span> Solutions
                 </h1>
                 <p className="text-xl text-gray-600 leading-relaxed">
-                  Trusted electrical contractors providing safe, reliable, and efficient electrical services for residential and commercial properties.
+                  Specialized electrical contractors providing safe, reliable solutions for government sector projects and residential properties in Surat.
                 </p>
               </div>
               
@@ -91,8 +116,8 @@ const Index = () => {
                   <span>Licensed & Insured</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Clock className="h-5 w-5 text-blue-500" />
-                  <span>24/7 Emergency Service</span>
+                  <Building className="h-5 w-5 text-blue-500" />
+                  <span>Government Approved</span>
                 </div>
               </div>
             </div>
@@ -104,11 +129,11 @@ const Index = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-2">Why Choose Us?</h3>
                     <ul className="space-y-2 text-blue-100">
-                      <li>• 15+ Years Experience</li>
+                      <li>• Government Sector Specialist</li>
+                      <li>• Residential Expert</li>
                       <li>• Licensed Electricians</li>
                       <li>• Quality Guaranteed</li>
                       <li>• Competitive Pricing</li>
-                      <li>• Same Day Service</li>
                     </ul>
                   </div>
                 </div>
@@ -122,10 +147,10 @@ const Index = () => {
       <section id="services" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 mb-4">Our Services</Badge>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Comprehensive Electrical Services</h2>
+            <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 mb-4">Our Specializations</Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Government & Residential Electrical Services</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From simple repairs to complex installations, we provide complete electrical solutions for all your needs.
+              Specialized electrical solutions for government sector projects and comprehensive residential services.
             </p>
           </div>
 
@@ -222,41 +247,141 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-blue-600">
+      <section id="contact" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">Get In Touch</h2>
-            <p className="text-xl text-blue-100">Ready to get started? Contact us for a free consultation and quote.</p>
+          <div className="text-center mb-16">
+            <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 mb-4">Contact Us</Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              For any inquiries, questions or commendations, please call: <strong>0261-2410-075</strong> or fill out the following form.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center p-6 border-0 shadow-lg">
-              <Phone className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Call Us</h3>
-              <p className="text-gray-600 mb-4">Ready to help 24/7</p>
-              <p className="text-lg font-semibold text-blue-600">(555) 123-4567</p>
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Form */}
+            <Card className="p-8 shadow-lg border-0">
+              <CardHeader className="px-0 pb-6">
+                <CardTitle className="text-2xl font-bold text-gray-900">Send us a Message</CardTitle>
+              </CardHeader>
+              <CardContent className="px-0">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-gray-700 font-medium">Name *</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-gray-700 font-medium">Email *</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="subject" className="text-gray-700 font-medium">Subject</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-gray-700 font-medium">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6">
+                    <Send className="h-5 w-5 mr-2" />
+                    Send
+                  </Button>
+                </form>
+              </CardContent>
             </Card>
 
-            <Card className="text-center p-6 border-0 shadow-lg">
-              <Mail className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-gray-600 mb-4">Get a quick response</p>
-              <p className="text-lg font-semibold text-blue-600">info@srelectrical.com</p>
-            </Card>
+            {/* Contact Information */}
+            <div className="space-y-8">
+              {/* Head Office */}
+              <Card className="p-6 shadow-lg border-0">
+                <CardHeader className="px-0 pb-4">
+                  <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
+                    <MapPin className="h-6 w-6 text-blue-600 mr-2" />
+                    Head Office
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-0 space-y-3">
+                  <p className="text-gray-700 leading-relaxed">
+                    G-2, Faith Park, Mission House,<br />
+                    Muglisara - SURAT - 395003
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Mail className="h-4 w-4 text-blue-600" />
+                      <span className="text-gray-700">support@srelectricalworks.com</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-blue-600" />
+                      <span className="text-gray-700">0261-2410-075</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-blue-600" />
+                      <span className="text-gray-700">+91-8469499923</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card className="text-center p-6 border-0 shadow-lg">
-              <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Visit Us</h3>
-              <p className="text-gray-600 mb-4">Local service area</p>
-              <p className="text-lg font-semibold text-blue-600">Your City, State</p>
-            </Card>
-          </div>
+              {/* Employment */}
+              <Card className="p-6 shadow-lg border-0">
+                <CardHeader className="px-0 pb-4">
+                  <CardTitle className="text-xl font-bold text-gray-900">Employment</CardTitle>
+                </CardHeader>
+                <CardContent className="px-0">
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    To apply for a job with S.R ELECTRICALS, please send a cover letter together with your C.V. to:
+                  </p>
+                  <div className="flex items-center space-x-2">
+                    <Mail className="h-4 w-4 text-blue-600" />
+                    <span className="text-blue-600 font-medium">support@srelectricalworks.com</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <div className="text-center mt-12">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6">
-              <Phone className="h-5 w-5 mr-2" />
-              Call Now for Free Quote
-            </Button>
+              {/* Quick Quote */}
+              <Card className="p-6 shadow-lg border-0 bg-blue-50">
+                <CardContent className="px-0 text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Get a Quote</h3>
+                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                    <Phone className="h-5 w-5 mr-2" />
+                    0261-2410-075
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -271,21 +396,21 @@ const Index = () => {
                 <span className="text-2xl font-bold">SR Electrical Works</span>
               </div>
               <p className="text-gray-400 mb-4">
-                Professional electrical services you can trust. Licensed, insured, and committed to excellence.
+                Specialized electrical services for government sector and residential projects. Licensed, insured, and committed to excellence.
               </p>
               <div className="flex space-x-2">
                 <Badge variant="outline" className="text-blue-400 border-blue-400">Licensed</Badge>
-                <Badge variant="outline" className="text-blue-400 border-blue-400">Insured</Badge>
+                <Badge variant="outline" className="text-blue-400 border-blue-400">Government Approved</Badge>
               </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+              <h3 className="text-lg font-semibold mb-4">Our Specializations</h3>
               <ul className="space-y-2 text-gray-400">
-                <li>Residential Electrical</li>
-                <li>Commercial Electrical</li>
-                <li>Electrical Repairs</li>
-                <li>Safety Inspections</li>
+                <li>Government Sector Projects</li>
+                <li>Residential Solutions</li>
+                <li>Electrical Installations</li>
+                <li>Safety & Compliance</li>
                 <li>Emergency Services</li>
               </ul>
             </div>
@@ -295,19 +420,19 @@ const Index = () => {
               <div className="space-y-3 text-gray-400">
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4" />
-                  <span>(555) 123-4567</span>
+                  <span>0261-2410-075</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-4 w-4" />
+                  <span>+91-8469499923</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4" />
-                  <span>info@srelectrical.com</span>
+                  <span>support@srelectricalworks.com</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4" />
-                  <span>Your City, State</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Clock className="h-4 w-4" />
-                  <span>24/7 Emergency Service</span>
+                  <span>Surat, Gujarat</span>
                 </div>
               </div>
             </div>
@@ -315,7 +440,7 @@ const Index = () => {
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2024 SR Electrical Works. All rights reserved. | Licensed & Insured Electrical Contractor
+              © 2024 SR Electrical Works. All rights reserved. | Licensed Electrical Contractor | Government & Residential Specialist
             </p>
           </div>
         </div>
