@@ -15,5 +15,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/srelectricalworks.com/' : '/',
+  base: '/', // Using custom domain, so base should be '/'
+  build: {
+    outDir: 'dist',
+  },
 })
